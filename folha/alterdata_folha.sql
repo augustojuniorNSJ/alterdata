@@ -8,7 +8,7 @@ SELECT
 	cdempresa CODIGO,
 	nmempresa RAZAOSOCIAL
 FROM wphd.empresa
-) TO '${PASTA_SAIDA}${CLIENTE}\gruposempresariais.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\gruposempresariais.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 -- EMPRESAS
@@ -165,7 +165,7 @@ LEFT JOIN wphd.municipiosibge ON empresa.cduf = municipiosibge.sguf AND empresa.
 LEFT JOIN wdp.empdp ON empresa.cdempresa = empdp.idempresa::INTEGER
 LEFT JOIN wdp.fpas ON empdp.cdfpasgrps = fpas.idfpas
 WHERE emp.cdempresa not in ('99997', '99998', '99999') 
-) TO '${PASTA_SAIDA}${CLIENTE}\empresas.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\empresas.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 -- CARGOS
 
@@ -222,7 +222,7 @@ FROM wphd.empresa, wphd.empresa emp, wdp.funcoesb
 INNER JOIN cargos ON funcoesb.cdchamada = cargos.codigo
 WHERE (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 14 AND LEFT(RIGHT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),6),4) = '0001' AND LEFT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),8) =  LEFT(REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'),8))
                                                               OR (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 11 AND REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g') = REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'))
-) TO '${PASTA_SAIDA}${CLIENTE}\cargos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\cargos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 
@@ -325,7 +325,7 @@ SELECT DISTINCT
 	NULL fpas,
 	NULL codigoterceiros
 FROM wdp.sind
-) TO '${PASTA_SAIDA}${CLIENTE}\sindicatos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\sindicatos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 
@@ -395,7 +395,7 @@ INNER JOIN wphd.empresa ON depto.idempresa::INTEGER = empresa.cdempresa
 INNER JOIN wphd.empresa emp ON (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 14 AND LEFT(RIGHT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),6),4) = '0001' AND LEFT(REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'),8) =  LEFT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),8))
 			    OR (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 11 AND REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g') = REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'))
 				
-) TO '${PASTA_SAIDA}${CLIENTE}\lotacoes.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\lotacoes.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 -- DEPARTAMENTO
 
@@ -427,7 +427,7 @@ INNER JOIN wphd.empresa ON depto.idempresa::INTEGER = empresa.cdempresa
 left JOIN wphd.empresa emp ON (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 14 AND LEFT(RIGHT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),6),4) = '0001' AND LEFT(REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'),8) =  LEFT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),8))
 			    OR (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 11 AND REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g') = REGEXP_REPLACE(depto.nrcgc,'[^0-9]','','g'))
 			
-) TO '${PASTA_SAIDA}${CLIENTE}\departamentos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\departamentos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 --NIVEIS DE CARGOS
@@ -447,7 +447,7 @@ FROM wphd.empresa, wphd.empresa emp, wdp.funcoesb
 INNER JOIN cargos ON funcoesb.cdchamada = cargos.codigo
 WHERE (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 14 AND LEFT(RIGHT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),6),4) = '0001' AND LEFT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),8) =  LEFT(REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'),8))
                                                               OR (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 11 AND REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g') = REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'))
-) TO '${PASTA_SAIDA}${CLIENTE}\niveiscargos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\niveiscargos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 -- JORNADAS
 
@@ -529,7 +529,7 @@ case when empresa is null or empresa::text='' then grupoempresarial
 else empresa end as empresa,
 grupoempresarial
 FROM JORNADAS 
-) TO '${PASTA_SAIDA}${CLIENTE}\jornadas.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\jornadas.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 -- HORARIOS
@@ -566,7 +566,7 @@ SELECT
 FROM wdp.horario, wphd.empresa, wphd.empresa emp
 WHERE (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 14 AND LEFT(RIGHT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),6),4) = '0001' AND LEFT(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g'),8) =  LEFT(REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'),8))
                                                               OR (LENGTH(REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g')) = 11 AND REGEXP_REPLACE(emp.nrcgc,'[^0-9]','','g') = REGEXP_REPLACE(empresa.nrcgc,'[^0-9]','','g'))
-) TO '${PASTA_SAIDA}${CLIENTE}\horarios.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\horarios.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 -- BANCOS
 
 COPY (
@@ -577,7 +577,7 @@ SELECT
 	NULL tipoimpressao,
 	NULL codigoispb
 FROM wdp.bancos
-) TO '${PASTA_SAIDA}${CLIENTE}\bancos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\bancos.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 -- AGENCIAS
@@ -632,7 +632,7 @@ SELECT DISTINCT
 FROM wdp.agencia
 
 
-) TO '${PASTA_SAIDA}${CLIENTE}\agencias.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\agencias.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 
@@ -651,7 +651,7 @@ COPY (
 	FROM wdp.passagb
 	INNER JOIN wdp.passagv ON passagb.idpassagem = passagv.idpassagem
 	ORDER BY passagb.cdchamada, passagb.nmpassagem, passagv.dtinicial DESC
-) TO '${PASTA_SAIDA}${CLIENTE}\tarifasconcessionariasvts.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+) TO '${PASTA_SAIDA}${CLIENTE}\tarifasconcessionariasvts.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 
 
 -- TARIFASCONCESSIONARIASVTSTRABALHADORES
@@ -716,7 +716,7 @@ BEGIN
 	
 	EXECUTE sqlcmd;
 	
-	COPY (SELECT DISTINCT ON (FUNCIONARIO, TARIFAVT) CODIGO,DESCRICAO,FUNCIONARIO,CONCESSIONARIAVT,TARIFAVT,QUANTIDADE,EMPRESA,GRUPOEMPRESARIAL FROM tarifas ORDER BY FUNCIONARIO, TARIFAVT, dtfinal desc) TO '${PASTA_SAIDA}${CLIENTE}\tarifasconcessionariasvtstrabalhadores.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'UTF8';
+	COPY (SELECT DISTINCT ON (FUNCIONARIO, TARIFAVT) CODIGO,DESCRICAO,FUNCIONARIO,CONCESSIONARIAVT,TARIFAVT,QUANTIDADE,EMPRESA,GRUPOEMPRESARIAL FROM tarifas ORDER BY FUNCIONARIO, TARIFAVT, dtfinal desc) TO '${PASTA_SAIDA}${CLIENTE}\tarifasconcessionariasvtstrabalhadores.csv' WITH CSV HEADER DELIMITER ';' ENCODING 'WIN1252';
 	
 	DROP TABLE tarifas;
 END
@@ -1410,7 +1410,7 @@ end if;
 	end if;
 	END LOOP;
 
-	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\trabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\trabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 
 	EXECUTE sqlcmd;
@@ -1509,7 +1509,7 @@ BEGIN
 				AND empresa.cdempresa = ''' || r.tablename::INTEGER || '''';
 	END LOOP;
 
-	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\dependentestrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\dependentestrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 	EXECUTE sqlcmd;
 END
@@ -1604,7 +1604,7 @@ BEGIN
 				';
 	END LOOP;
 
-	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\afastamentostrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\afastamentostrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 	EXECUTE sqlcmd;
 END
@@ -1678,7 +1678,7 @@ BEGIN
 				AND empresa.cdempresa = ''' || r.tablename::INTEGER || '''';
 	END LOOP;
 
-	sqlcmd := sqlcmd || ' ORDER BY empresa,trabalhador, data, salarionovo) TO ''${PASTA_SAIDA}${CLIENTE}\reajustestrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ' ORDER BY empresa,trabalhador, data, salarionovo) TO ''${PASTA_SAIDA}${CLIENTE}\reajustestrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 	EXECUTE sqlcmd;
 END
@@ -1919,7 +1919,7 @@ BEGIN
 				
 	END LOOP;
 
-	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\faltas.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ') TO ''${PASTA_SAIDA}${CLIENTE}\faltas.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 	EXECUTE sqlcmd;
 END
@@ -2433,7 +2433,7 @@ BEGIN
 				
 	END LOOP;
 
-	sqlcmd := sqlcmd || ' ORDER BY 15) TO ''${PASTA_SAIDA}${CLIENTE}\calculostrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ' ORDER BY 15) TO ''${PASTA_SAIDA}${CLIENTE}\calculostrabalhadores.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 	EXECUTE sqlcmd;
 END
@@ -2493,7 +2493,7 @@ BEGIN
 				AND empresa.cdempresa = ''' || r.tablename::INTEGER || '''';
 	END LOOP;
 
-	sqlcmd := sqlcmd || ' ORDER BY 1,2) TO ''${PASTA_SAIDA}${CLIENTE}\calculostrabalhadorestipos.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''UTF8'';';
+	sqlcmd := sqlcmd || ' ORDER BY 1,2) TO ''${PASTA_SAIDA}${CLIENTE}\calculostrabalhadorestipos.csv'' WITH CSV HEADER DELIMITER '';'' ENCODING ''WIN1252'';';
 
 	EXECUTE sqlcmd;
 END
